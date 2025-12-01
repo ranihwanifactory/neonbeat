@@ -1,0 +1,17 @@
+{
+  "name": "NeonBeat",
+  "short_name": "NeonBeat",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "https://unpkg.com/lucide-static@latest/icons/music-2.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

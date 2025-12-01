@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SongSelector } from './components/SongSelector';
 import { GameCanvas } from './components/GameCanvas';
 import { Results } from './components/Results';
+import { PWAInstallButton } from './components/PWAInstallButton';
 import { GameState, Note, ScoreState } from './types';
 import { analyzeAudio } from './utils/audioProcessor';
 
-// A generic "Cyberpunk" style loop for the demo song
-const DEMO_SONG_URL = "https://cdn.pixabay.com/audio/2022/03/24/audio_34b7f8c857.mp3"; // Royalty free upbeat track
+const DEMO_SONG_URL = "https://cdn.pixabay.com/audio/2022/03/24/audio_34b7f8c857.mp3"; 
 
 const App: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>(GameState.MENU);
@@ -48,6 +48,7 @@ const App: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(DEMO_SONG_URL);
+      if (!response.ok) throw new Error("Network response was not ok");
       const arrayBuffer = await response.arrayBuffer();
       await processAudioFile(arrayBuffer);
     } catch (error) {
@@ -75,7 +76,9 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-black overflow-hidden">
+    <div className="w-full h-screen bg-black overflow-hidden relative">
+      <PWAInstallButton />
+      
       {gameState === GameState.MENU && (
         <SongSelector 
           onSongSelected={handleFileSelect} 
