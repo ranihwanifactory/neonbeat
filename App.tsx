@@ -5,6 +5,9 @@ import { Results } from './components/Results';
 import { GameState, Note, ScoreState } from './types';
 import { analyzeAudio } from './utils/audioProcessor';
 
+// A generic "Cyberpunk" style loop for the demo song
+const DEMO_SONG_URL = "https://cdn.pixabay.com/audio/2022/03/24/audio_34b7f8c857.mp3"; // Royalty free upbeat track
+
 const App: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>(GameState.MENU);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,17 +44,15 @@ const App: React.FC = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  const handleTrackSelect = async (url: string) => {
+  const handleDemoSelect = async () => {
     setIsLoading(true);
     try {
-      // Fetch the audio file from the provided URL
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Network response was not ok");
+      const response = await fetch(DEMO_SONG_URL);
       const arrayBuffer = await response.arrayBuffer();
       await processAudioFile(arrayBuffer);
     } catch (error) {
-      console.error("Track load failed", error);
-      alert("Failed to load track. Please check your internet connection.");
+      console.error("Demo load failed", error);
+      alert("Failed to load demo song. Check your internet connection.");
       setIsLoading(false);
     }
   };
@@ -78,7 +79,7 @@ const App: React.FC = () => {
       {gameState === GameState.MENU && (
         <SongSelector 
           onSongSelected={handleFileSelect} 
-          onTrackSelect={handleTrackSelect}
+          onDemoSelected={handleDemoSelect}
           isLoading={isLoading}
         />
       )}
