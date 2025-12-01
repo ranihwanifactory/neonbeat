@@ -1,0 +1,5 @@
+{
+  "name": "NeonBeat",
+  "description": "An immersive rhythm game where you can play with your own music. Upload an audio file, and the game procedurally generates a beatmap for you to play along with.",
+  "requestFramePermissions": []
+}
